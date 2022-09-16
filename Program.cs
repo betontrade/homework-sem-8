@@ -1,10 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
-
-
-
-
-// Задача 54: Задайте двумерный массив. Напишите программу, которая упорядочит по убыванию элементы каждой строки двумерного массива.
+﻿// Задача 54: Задайте двумерный массив. Напишите программу, которая упорядочит по убыванию элементы каждой строки двумерного массива.
 //Например, задан массив:
 //1 4 7 2
 //5 9 2 3
@@ -15,7 +9,80 @@ Console.WriteLine("Hello, World!");
 // 8 4 4 2
 // по строкам!!!!!!!
 
+/* Решение внутри
 
+int[,] CreateArray(int rows, int columns, int minValue, int maxValue)
+{
+    int[,] array = new int[rows, columns];
+    for (int i = 0; i < array.GetLength(0); i++)
+    {
+        for (int j = 0; j < array.GetLength(1); j++)
+        {
+            array[i, j] = new Random().Next(minValue, maxValue);
+        }
+    }
+    return array;
+}
+
+void ShowArray(int[,] arrayForShow)
+{
+    for (int i = 0; i < arrayForShow.GetLength(0); i++)
+    {
+        for (int j = 0; j < arrayForShow.GetLength(1); j++)
+        {
+            Console.Write("{0, 3}", arrayForShow[i, j] + " ");
+        }
+        Console.WriteLine();
+    }
+    Console.WriteLine();
+}
+
+int[,] SortArray(int[,] arrayForSort)
+{
+    int temp = 0;
+    for (int i = 0; i < arrayForSort.GetLength(0); i++)
+    {
+        for (int j = 1; j < (arrayForSort.GetLength(1)); j++)
+        {              // 2    (1)           // 1   (9)
+            for (int l = 1; l < arrayForSort.GetLength(1); l++)
+            {
+                if (arrayForSort[i, l] < arrayForSort[i, l - 1])
+                {
+                    temp = arrayForSort[i, l - 1];
+                    arrayForSort[(i), l - 1] = arrayForSort[i, l];
+                    arrayForSort[(i), (l)] = temp;
+                }
+            }
+        }
+    }
+    return arrayForSort;
+}
+
+
+
+Console.Write("Пожалуйста введите количество строк в массиве: ");
+int rowsCreate = Convert.ToInt32(Console.ReadLine());
+
+Console.Write("Пожалуйста введите количество столбцов в массиве: ");
+int columnsCreate = Convert.ToInt32(Console.ReadLine());
+
+Console.Write("Пожалуйста введите минимальное значение числа в массиве: ");
+int minValue = Convert.ToInt32(Console.ReadLine());
+
+Console.Write("Пожалуйста введите максимальное значение числа в массиве: ");
+int maxValue = Convert.ToInt32(Console.ReadLine());
+
+int[,] firstArray = CreateArray(rowsCreate, columnsCreate, minValue, maxValue);
+ShowArray(firstArray);
+
+int[,] arrayAfterSort = SortArray(firstArray);
+
+Console.WriteLine("Отсортированный массив равен: ");
+Console.WriteLine();
+
+ShowArray(arrayAfterSort);
+
+*/
 
 
 //Задача 56: Задайте прямоугольный двумерный массив. Напишите программу, которая будет находить строку с наименьшей суммой элементов.
