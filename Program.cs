@@ -190,40 +190,20 @@ Console.WriteLine("Индекс строки с наименьшей суммо�
 
 // 3
 // Задача 58: Задайте две матрицы. Напишите программу, которая будет находить произведение двух матриц.
-// Например, даны 2 матрицы:
-// 2 4 | 3 4
-// 3 2 | 3 3
-// Результирующая матрица будет:
-// 18 20
-// 15 18
-// ответ math profi (искать принцип произведения матриц) // строки умножаются на столбцы
-/*
-x y | xx yy
-z v | zz vv
-(x * xx)+(y * zz)!    (x*yy) + (y * vv)!
-(z * xx)+(v * zz)    (z*yy) + (v * vv)
-(2*3)+(4*3)=18    (2*4)+(4*3)=20
-(3*3)+(2*3)=15    (3*4)+(2*3)=18
 
-Количество столбцов первой матрицы было равно количеству строк второй матрицы!! Условие
-*/
+/* Решение внутри
 
-int[,] arrayFirst = { { 2, 4 }, { 3, 2 } };
-int[,] arraySecond = { { 3, 4 }, { 3, 3 } };
-int[,] arrayThird = new int[arraySecond.GetLength(1), arrayFirst.GetLength(0)];
-int[,] arrayFourth = new int[arraySecond.GetLength(1), arrayFirst.GetLength(0)];
-arrayThird[0, 0] = arrayFirst[0, 0] * arraySecond[0, 0] + arrayFirst[0, 1] * arraySecond[1, 0]; // строка 0 столбец 0
-
-arrayThird[0, 1] = arrayFirst[0, 0] * arraySecond[0, 1] + arrayFirst[0, 1] * arraySecond[1, 1]; // строка 0 столбец 1
-//___________________________________посчитали первую строку
-arrayThird[1, 0] = arrayFirst[1, 0] * arraySecond[0, 0] + arrayFirst[1, 1] * arraySecond[1, 0];  // строка 1 столбец 0
-
-arrayThird[1, 1] = arrayFirst[1, 0] * arraySecond[0, 1] + arrayFirst[1, 1] * arraySecond[1, 1]; // строка 1 столбец 1
-
-for (int i = (arraySecond.GetLength(1)-1), j = (arrayFirst.GetLength(0)-1); i >=0 && j >=0 ; i--, j--)
+int[,] CreateArray(int rows, int columns, int minValue, int maxValue)
 {
-    arrayFourth[i, j] = arrayFirst[i, j] * arraySecond[i, j] + arrayFirst[i, j + 1] * arraySecond[i + 1, j]; // строка 0 столбец 0
-    arrayFourth[i, j + 1] = arrayFirst[0, 0] * arraySecond[i, j + 1] + arrayFirst[i, j + 1] * arraySecond[i + 1, j + 1];
+    int[,] array = new int[rows, columns];
+    for (int i = 0; i < array.GetLength(0); i++)
+    {
+        for (int j = 0; j < array.GetLength(1); j++)
+        {
+            array[i, j] = new Random().Next(minValue, maxValue);
+        }
+    }
+    return array;
 }
 
 void ShowArray(int[,] arrayForShow)
@@ -236,15 +216,77 @@ void ShowArray(int[,] arrayForShow)
         }
         Console.WriteLine();
     }
+}
+
+int[,] CalcMatrix(int[,] first, int[,] second)
+{
+    int[,] calcArray = new int[first.GetLength(0), second.GetLength(1)];
+    for (int i = 0; i < first.GetLength(0); i++)
+    {
+        for (int j = 0; j < second.GetLength(1); j++)
+        {
+            for (int l = 0; l < second.GetLength(0); l++)
+            {
+                calcArray[i, j] = calcArray[i, j] + first[i, l] * second[l, j];
+            }
+        }
+    }
+    return calcArray;
+}
+
+//______________________________Создание массива 1_____________________
+Console.Write("Пожалуйста введите количество строк в массиве №1: ");
+int rowsCreate = Convert.ToInt32(Console.ReadLine());
+
+Console.Write("Пожалуйста введите количество столбцов в массиве №1: ");
+int columnsCreate = Convert.ToInt32(Console.ReadLine());
+
+Console.Write("Пожалуйста введите минимальное значение числа в массиве №1: ");
+int minValue = Convert.ToInt32(Console.ReadLine());
+
+Console.Write("Пожалуйста введите максимальное значение числа в массиве №1: ");
+int maxValue = Convert.ToInt32(Console.ReadLine());
+
+int[,] firstArray = CreateArray(rowsCreate, columnsCreate, minValue, maxValue);
+
+//____________________________Создание массива 2______________________________
+
+Console.Write("Пожалуйста введите количество строк в массиве №2: ");
+int rowsCreate2 = Convert.ToInt32(Console.ReadLine());
+
+Console.Write("Пожалуйста введите количество столбцов в массиве №2: ");
+int columnsCreate2 = Convert.ToInt32(Console.ReadLine());
+
+Console.Write("Пожалуйста введите минимальное значение числа в массиве №2: ");
+int minValue2 = Convert.ToInt32(Console.ReadLine());
+
+Console.Write("Пожалуйста введите максимальное значение числа в массиве №2: ");
+int maxValue2 = Convert.ToInt32(Console.ReadLine());
+
+int[,] secondArray = CreateArray(rowsCreate2, columnsCreate2, minValue2, maxValue2);
+
+
+Console.WriteLine("Даны две матрицы:");
+ShowArray(firstArray);
+Console.WriteLine("и:");
+ShowArray(secondArray);
+
+if (firstArray.GetLength(1) != secondArray.GetLength(0))
+{
+    Console.WriteLine("Невозможно посчитать произведение матриц, так как количество столбцов ");
+    Console.WriteLine("первой матрицы не равно количеству строк во второй матрице");
+}
+else
+{
+    Console.WriteLine("их произведение равно:");
+    int[,] CalcFinalMatrix = CalcMatrix(firstArray, secondArray);
+    ShowArray(CalcFinalMatrix);
     Console.WriteLine();
 }
 
-ShowArray(arrayThird);
-Console.WriteLine("Моя матрица равна:");
-ShowArray(arrayFourth);
-// Результирующая матрица будет:
-// 18 20
-// 15 18
+*/
+
+
 
 // Задача 60. ...Сформируйте трёхмерный массив из неповторяющихся !!! двузначных чисел. 
 // Напишите программу, которая будет построчно выводить массив, добавляя индексы каждого элемента.
