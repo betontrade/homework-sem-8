@@ -11,53 +11,53 @@
 // 8 4 4 2
 // по строкам!!!!!!!
 
- /* Решение внутри
+/* Решение внутри
 
 int[,] CreateArray(int rows, int columns, int minValue, int maxValue)
 {
-    int[,] array = new int[rows, columns];
-    for (int i = 0; i < array.GetLength(0); i++)
-    {
-        for (int j = 0; j < array.GetLength(1); j++)
-        {
-            array[i, j] = new Random().Next(minValue, maxValue);
-        }
-    }
-    return array;
+   int[,] array = new int[rows, columns];
+   for (int i = 0; i < array.GetLength(0); i++)
+   {
+       for (int j = 0; j < array.GetLength(1); j++)
+       {
+           array[i, j] = new Random().Next(minValue, maxValue);
+       }
+   }
+   return array;
 }
 
 void ShowArray(int[,] arrayForShow)
 {
-    for (int i = 0; i < arrayForShow.GetLength(0); i++)
-    {
-        for (int j = 0; j < arrayForShow.GetLength(1); j++)
-        {
-            Console.Write("{0, 3}", arrayForShow[i, j] + " ");
-        }
-        Console.WriteLine();
-    }
-    Console.WriteLine();
+   for (int i = 0; i < arrayForShow.GetLength(0); i++)
+   {
+       for (int j = 0; j < arrayForShow.GetLength(1); j++)
+       {
+           Console.Write("{0, 3}", arrayForShow[i, j] + " ");
+       }
+       Console.WriteLine();
+   }
+   Console.WriteLine();
 }
 
 int[,] SortArray(int[,] arrayForSort)
 {
-    int temp = 0;
-    for (int i = 0; i < arrayForSort.GetLength(0); i++)
-    {
-        for (int j = 1; j < (arrayForSort.GetLength(1) -1); j++)
-        {              // 2    (1)           // 1   (9)
-            for (int l = 1; l < arrayForSort.GetLength(1); l++)
-            {
-                if (arrayForSort[i, l] < arrayForSort[i, l - 1])
-                {
-                    temp = arrayForSort[i, l - 1];
-                    arrayForSort[(i), l - 1] = arrayForSort[i, l];
-                    arrayForSort[(i), (l)] = temp;
-                }
-            }
-        }
-    }
-    return arrayForSort;
+   int temp = 0;
+   for (int i = 0; i < arrayForSort.GetLength(0); i++)
+   {
+       for (int j = 1; j < (arrayForSort.GetLength(1) -1); j++)
+       {              // 2    (1)           // 1   (9)
+           for (int l = 1; l < arrayForSort.GetLength(1); l++)
+           {
+               if (arrayForSort[i, l] < arrayForSort[i, l - 1])
+               {
+                   temp = arrayForSort[i, l - 1];
+                   arrayForSort[(i), l - 1] = arrayForSort[i, l];
+                   arrayForSort[(i), (l)] = temp;
+               }
+           }
+       }
+   }
+   return arrayForSort;
 }
 
 
@@ -196,11 +196,55 @@ Console.WriteLine("Индекс строки с наименьшей суммо�
 // Результирующая матрица будет:
 // 18 20
 // 15 18
+// ответ math profi (искать принцип произведения матриц) // строки умножаются на столбцы
+/*
+x y | xx yy
+z v | zz vv
+(x * xx)+(y * zz)!    (x*yy) + (y * vv)!
+(z * xx)+(v * zz)    (z*yy) + (v * vv)
+(2*3)+(4*3)=18    (2*4)+(4*3)=20
+(3*3)+(2*3)=15    (3*4)+(2*3)=18
 
-// ответ math profi (искать принцип произведения матриц)
+Количество столбцов первой матрицы было равно количеству строк второй матрицы!! Условие
+*/
 
+int[,] arrayFirst = { { 2, 4 }, { 3, 2 } };
+int[,] arraySecond = { { 3, 4 }, { 3, 3 } };
+int[,] arrayThird = new int[arraySecond.GetLength(1), arrayFirst.GetLength(0)];
+int[,] arrayFourth = new int[arraySecond.GetLength(1), arrayFirst.GetLength(0)];
+arrayThird[0, 0] = arrayFirst[0, 0] * arraySecond[0, 0] + arrayFirst[0, 1] * arraySecond[1, 0]; // строка 0 столбец 0
 
+arrayThird[0, 1] = arrayFirst[0, 0] * arraySecond[0, 1] + arrayFirst[0, 1] * arraySecond[1, 1]; // строка 0 столбец 1
+//___________________________________посчитали первую строку
+arrayThird[1, 0] = arrayFirst[1, 0] * arraySecond[0, 0] + arrayFirst[1, 1] * arraySecond[1, 0];  // строка 1 столбец 0
 
+arrayThird[1, 1] = arrayFirst[1, 0] * arraySecond[0, 1] + arrayFirst[1, 1] * arraySecond[1, 1]; // строка 1 столбец 1
+
+for (int i = (arraySecond.GetLength(1)-1), j = (arrayFirst.GetLength(0)-1); i >=0 && j >=0 ; i--, j--)
+{
+    arrayFourth[i, j] = arrayFirst[i, j] * arraySecond[i, j] + arrayFirst[i, j + 1] * arraySecond[i + 1, j]; // строка 0 столбец 0
+    arrayFourth[i, j + 1] = arrayFirst[0, 0] * arraySecond[i, j + 1] + arrayFirst[i, j + 1] * arraySecond[i + 1, j + 1];
+}
+
+void ShowArray(int[,] arrayForShow)
+{
+    for (int i = 0; i < arrayForShow.GetLength(0); i++)
+    {
+        for (int j = 0; j < arrayForShow.GetLength(1); j++)
+        {
+            Console.Write("{0, 4}", arrayForShow[i, j] + " ");
+        }
+        Console.WriteLine();
+    }
+    Console.WriteLine();
+}
+
+ShowArray(arrayThird);
+Console.WriteLine("Моя матрица равна:");
+ShowArray(arrayFourth);
+// Результирующая матрица будет:
+// 18 20
+// 15 18
 
 // Задача 60. ...Сформируйте трёхмерный массив из неповторяющихся !!! двузначных чисел. 
 // Напишите программу, которая будет построчно выводить массив, добавляя индексы каждого элемента.
