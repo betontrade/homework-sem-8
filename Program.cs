@@ -1,4 +1,6 @@
-﻿// Задача 54: Задайте двумерный массив. Напишите программу, которая упорядочит по убыванию элементы каждой строки двумерного массива.
+﻿//1
+
+// Задача 54: Задайте двумерный массив. Напишите программу, которая упорядочит по убыванию элементы каждой строки двумерного массива.
 //Например, задан массив:
 //1 4 7 2
 //5 9 2 3
@@ -9,7 +11,7 @@
 // 8 4 4 2
 // по строкам!!!!!!!
 
-/* Решение внутри
+ /* Решение внутри
 
 int[,] CreateArray(int rows, int columns, int minValue, int maxValue)
 {
@@ -42,7 +44,7 @@ int[,] SortArray(int[,] arrayForSort)
     int temp = 0;
     for (int i = 0; i < arrayForSort.GetLength(0); i++)
     {
-        for (int j = 1; j < (arrayForSort.GetLength(1)); j++)
+        for (int j = 1; j < (arrayForSort.GetLength(1) -1); j++)
         {              // 2    (1)           // 1   (9)
             for (int l = 1; l < arrayForSort.GetLength(1); l++)
             {
@@ -84,7 +86,7 @@ ShowArray(arrayAfterSort);
 
 */
 
-
+// 2
 //Задача 56: Задайте прямоугольный двумерный массив. Напишите программу, которая будет находить строку с наименьшей суммой элементов.
 
 //Например, задан массив:
@@ -101,8 +103,92 @@ ShowArray(arrayAfterSort);
 
 // Программа считает сумму элементов в каждой строке и выдаёт номер строки с наименьшей суммой элементов: 1 строка
 
+/* Решение внутри
+
+int[,] CreateArray(int rowsAndColumns, int minValue, int maxValue)
+{
+    int[,] array = new int[rowsAndColumns, rowsAndColumns];
+    for (int i = 0; i < array.GetLength(0); i++)
+    {
+        for (int j = 0; j < array.GetLength(1); j++)
+        {
+            array[i, j] = new Random().Next(minValue, maxValue);
+        }
+    }
+    return array;
+}
+
+void ShowArray(int[,] arrayForShow)
+{
+    for (int i = 0; i < arrayForShow.GetLength(0); i++)
+    {
+        for (int j = 0; j < arrayForShow.GetLength(1); j++)
+        {
+            Console.Write("{0, 4}", arrayForShow[i, j] + " ");
+        }
+        Console.WriteLine();
+    }
+    Console.WriteLine();
+}
+
+int IndexOfMin (int [,] array)
+{
+    Console.WriteLine();
+    int maxSummCount = 0;
+    int maxSummFinal = 0;
+    int indexRows =0;
+    int l =0 ;
+
+    for (int m = 0; m < array.GetLength(1); m++)
+        {
+            maxSummFinal = maxSummFinal + array[0, m];
+        }
+        
+    Console.WriteLine("Cумма в строке 0 равняется: " + maxSummFinal);
+
+    for (l = 1; l < array.GetLength(0); l++)
+    {
+        for (int  j = 0; j < array.GetLength(1); j++)
+        {
+            maxSummCount = maxSummCount + array[l, j];
+        }
+
+        Console.WriteLine("Cумма в строке "+ l + " равняется: " + maxSummCount);
+        if (maxSummCount < maxSummFinal)
+        {
+            indexRows = l;
+            maxSummFinal = maxSummCount;
+            maxSummCount =0;
+        }
+        maxSummCount = 0 ;
+    }
+    Console.WriteLine();
+    return indexRows;
+}
 
 
+
+Console.Write("Пожалуйста введите количество строк и столбцов в массиве: ");
+int rowsAndColumnsFinal = Convert.ToInt32(Console.ReadLine());
+
+Console.Write("Пожалуйста введите минимальное значение числа в массиве: ");
+int minValue = Convert.ToInt32(Console.ReadLine());
+
+Console.Write("Пожалуйста введите максимальное значение числа в массиве: ");
+int maxValue = Convert.ToInt32(Console.ReadLine());
+
+int[,] firstArray = CreateArray(rowsAndColumnsFinal, minValue, maxValue);
+
+ShowArray(firstArray);
+
+int indexOfMinRowsSumm = IndexOfMin(firstArray);
+
+Console.WriteLine("Индекс строки с наименьшей суммой чисел равен: " + indexOfMinRowsSumm);
+
+*/
+
+
+// 3
 // Задача 58: Задайте две матрицы. Напишите программу, которая будет находить произведение двух матриц.
 // Например, даны 2 матрицы:
 // 2 4 | 3 4
