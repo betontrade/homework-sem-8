@@ -299,93 +299,93 @@ else
 // 27(0,0,1) 90(0,1,1)
 // 26(1,0,1) 55(1,1,1)
 
- /* Решение внутри
+/* Решение внутри
 
 int[,,] CreateArray(int rows, int columns, int rowsSecond, int minValue, int maxValue)
 {
-    int[,,] array = new int[rows, columns, rowsSecond];
-    for (int i = 0; i < array.GetLength(0); i++)
-    {
-        for (int j = 0; j < array.GetLength(1); j++)
-        {
-            for (int l = 0; l < array.GetLength(2); l++)
-            {
-                array[i, j, l] = new Random().Next(minValue, maxValue);
-            }
-        }
-    }
-    return array;
+   int[,,] array = new int[rows, columns, rowsSecond];
+   for (int i = 0; i < array.GetLength(0); i++)
+   {
+       for (int j = 0; j < array.GetLength(1); j++)
+       {
+           for (int l = 0; l < array.GetLength(2); l++)
+           {
+               array[i, j, l] = new Random().Next(minValue, maxValue);
+           }
+       }
+   }
+   return array;
 }
 
 void ShowArray(int[,,] arrayForShow)
 {
-    for (int i = 0; i < arrayForShow.GetLength(0); i++)
-    {
-        for (int j = 0; j < arrayForShow.GetLength(1); j++)
-        {
-            for (int l = 0; l < arrayForShow.GetLength(2); l++)
-            {
-                Console.Write("{0, 20}", arrayForShow[i, j, l] +$" ({i}, {j}, {l}) ");
-            }
+   for (int i = 0; i < arrayForShow.GetLength(0); i++)
+   {
+       for (int j = 0; j < arrayForShow.GetLength(1); j++)
+       {
+           for (int l = 0; l < arrayForShow.GetLength(2); l++)
+           {
+               Console.Write("{0, 20}", arrayForShow[i, j, l] +$" ({i}, {j}, {l}) ");
+           }
 
-        }
-        Console.WriteLine();
-    }
+       }
+       Console.WriteLine();
+   }
 }
 
 int[,,] AllNumber(int[,,] arrayForShow)
 {
-    for (int i = 0; i < arrayForShow.GetLength(0); i++)
-    {
-        for (int j = 0; j < arrayForShow.GetLength(1); j++)
-        {
-            for (int l = 0; l < arrayForShow.GetLength(2); l++)
-            {
-                IndexArray(arrayForShow[i, j, l], arrayForShow, i, j, l); // поменяли числа
-            }
-        }
-    }
-    return arrayForShow;
+   for (int i = 0; i < arrayForShow.GetLength(0); i++)
+   {
+       for (int j = 0; j < arrayForShow.GetLength(1); j++)
+       {
+           for (int l = 0; l < arrayForShow.GetLength(2); l++)
+           {
+               IndexArray(arrayForShow[i, j, l], arrayForShow, i, j, l); // поменяли числа
+           }
+       }
+   }
+   return arrayForShow;
 }
 
 int[,,] IndexArray(int num, int[,,] array, int m, int n, int p)
 {
-    int[,,] arrayThird = new int[1, 1, 1];
-    
-    int count = array[0, 0, 0];
+   int[,,] arrayThird = new int[1, 1, 1];
 
-    for (int i = 0; i < array.GetLength(0); i++)
-    {
-        for (int j = 0; j < array.GetLength(1); j++)
-        {
-            for (int l = 0; l < array.GetLength(2); l++)
-            {
-                if (count < array[i, j, l])
-                {
-                    count= array[i, j , l];
-                }
-            }
-        }
-    }
+   int count = array[0, 0, 0];
 
-    for (int i = 0; i < array.GetLength(0); i++)
-    {
-        for (int j = 0; j < array.GetLength(1); j++)
-        {
-            for (int l = 0; l < array.GetLength(2); l++)
-            {
-                while ((array[i, j, l] == array [m, n, p]) && ((i != m) || (j != n) || (l!=p))  )
-                {
-                    count++;
-                    array[i, j, l] = count;  
-                }
-            }
-        }
-    }
-    
-    arrayThird = array;
+   for (int i = 0; i < array.GetLength(0); i++)
+   {
+       for (int j = 0; j < array.GetLength(1); j++)
+       {
+           for (int l = 0; l < array.GetLength(2); l++)
+           {
+               if (count < array[i, j, l])
+               {
+                   count= array[i, j , l];
+               }
+           }
+       }
+   }
 
-    return arrayThird;
+   for (int i = 0; i < array.GetLength(0); i++)
+   {
+       for (int j = 0; j < array.GetLength(1); j++)
+       {
+           for (int l = 0; l < array.GetLength(2); l++)
+           {
+               while ((array[i, j, l] == array [m, n, p]) && ((i != m) || (j != n) || (l!=p))  )
+               {
+                   count++;
+                   array[i, j, l] = count;  
+               }
+           }
+       }
+   }
+
+   arrayThird = array;
+
+   return arrayThird;
 }
 
 
@@ -394,7 +394,7 @@ int [,,] arraySecond = AllNumber(arrayFirst);
 ShowArray(arraySecond);
 
 
-  */
+ */
 
 
 // 5 
@@ -407,6 +407,158 @@ ShowArray(arraySecond);
 // 11 16 15 06
 // 10 09 08 07
 
+int[,] CreateSpiral(int rowsAndColumns)
+{
+
+    int[,] array = new int[rowsAndColumns, rowsAndColumns];
+    int m = 0;
+    int n = 0;
+    int index = 1;
+    //условие поворота 
+
+
+    while (index <= rowsAndColumns * rowsAndColumns)
+    {
+
+        for (int i = m, j = n; j < array.GetLength(1) && (array[i, j] == 0); j++)
+        {
+            {
+                array[i, j] = index;
+                index = index + 1;
+                //Console.WriteLine(array[i, j] + " вправо " + " (" + i + ", " + j + ") ");
+                m = i;
+                n = j;
+            }
+        }
+
+        for (int i = m + 1, j = n; (i) < (array.GetLength(0)) && (array[i, j] == 0); i++)
+        {
+            {
+                array[i, j] = index;
+                index = index + 1;
+                //Console.WriteLine(array[i, j] + " вниз " + " (" + i + ", " + j + ") ");
+                m = i;
+                n = j;
+            }
+        }
+
+
+        for (int i = m, j = n - 1; j >= 0 && (array[i, j] == 0); j--)
+        {
+            {
+                array[i, j] = index;
+                index = index + 1;
+                //Console.WriteLine(array[i, j] + " влево " + " (" + i + ", " + j + ") ");
+                m = i;
+                n = j;
+            }
+        }
+
+        for (int i = m - 1, j = n; i >= 0 && (array[i, j] == 0); i--)
+        {
+            {
+                array[i, j] = index;
+                index = index + 1;
+                //Console.WriteLine(array[i, j] + " вверх " + " (" + i + ", " + j + ") ");
+                m = i;
+                n = j;
+            }
+        }
+        n = n + 1;
+
+    }
+    return array;
+}
+
+void ShowArray(int[,] arrayForShow)
+{
+   for (int i = 0; i < arrayForShow.GetLength(0); i++)
+   {
+       for (int j = 0; j < arrayForShow.GetLength(1); j++)
+       {
+           Console.Write("{0, 4}", arrayForShow[i, j] + " ");
+       }
+       Console.WriteLine();
+   }
+   Console.WriteLine();
+}
+
+Console.Write("Пожалуйста введите число столбцов и строк в массиве: ");
+int numRowsAndColumns = Convert.ToInt32(Console.ReadLine());
+ShowArray(CreateSpiral(numRowsAndColumns));
+/*
+// вправо
+for (int i = 0, j = 0; j < array.GetLength(1); j++)
+{
+    {
+        array[i, j] = index;
+        index = index + 1;
+        Console.WriteLine(array[i, j] + " вправо " + " (" + i + ", " + j + ") ");
+        m = i;
+        n = j;
+    }
+}
+
+// вниз
+
+
+
+// 01 02 03 04
+// 12 13 14 05
+// 11 16 15 06
+// 10 09 08 07
+
+for (int i = m + 1, j = n; (i) < (array.GetLength(0)) && (array[i, j] == 0); i++)
+{
+    {
+        array[i, j] = index;
+        index = index + 1;
+        Console.WriteLine(array[i, j] + " вниз " + " (" + i + ", " + j + ") ");
+        m = i;
+        n = j;
+    }
+}
+
+
+
+// влево
+
+// 01 02 03 04
+// 12 13 14 05
+// 11 16 15 06
+// 10 09 08 07
+
+for (int i = m, j = n - 1; j >= 0 && (array[i, j] == 0); j--)
+{
+    {
+        array[i, j] = index;
+        index = index + 1;
+        Console.WriteLine(array[i, j] + " влево " + " (" + i + ", " + j + ") ");
+        m = i;
+        n = j;
+    }
+}
+
+
+
+// вверх
+
+// 01 02 03 04
+// 12 13 14 05
+// 11 16 15 06
+// 10 09 08 07
+
+for (int i = m - 1, j = n; i >= 0 && (array[i, j] == 0); i--)
+{
+    {
+        array[i, j] = index;
+        index = index + 1;
+        Console.WriteLine(array[i, j] + " вверх " + " (" + i + ", " + j + ") ");
+        m = i;
+        n = j;
+    }
+}
+*/
 
 // Попытка решить задачу 4, заменяя повторяющиеся элементы методом new Random().Next(min, max)
 
@@ -499,7 +651,7 @@ ShowArray(arraySecond);
 // Вторая попытка решить задачу 4.
 
 // Вопрос , такая же ситуация, при попытке создания массива с неповторяющимися числами, все равно попадаются 
-// одинаковые. 
+// одинаковые. Не могу найти ошибку.
 
 /* Решение внутри
 
