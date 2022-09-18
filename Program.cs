@@ -299,7 +299,7 @@ else
 // 27(0,0,1) 90(0,1,1)
 // 26(1,0,1) 55(1,1,1)
 
-/* Решение внутри
+ /* Решение внутри
 
 int[,,] CreateArray(int rows, int columns, int rowsSecond, int minValue, int maxValue)
 {
@@ -394,7 +394,7 @@ int [,,] arraySecond = AllNumber(arrayFirst);
 ShowArray(arraySecond);
 
 
- */
+  */
 
 
 // 5 
@@ -417,7 +417,96 @@ ShowArray(arraySecond);
 
 int[,,] CreateArray(int rows, int columns, int rowsSecond, int minValue, int maxValue)
 {
+   int[,,] array = new int[rows, columns, rowsSecond];
+   for (int i = 0; i < array.GetLength(0); i++)
+   {
+       for (int j = 0; j < array.GetLength(1); j++)
+       {
+           for (int l = 0; l < array.GetLength(2); l++)
+           {
+               array[i, j, l] = new Random().Next(minValue, maxValue);
+
+           }
+       }
+   }
+   return array;
+}
+
+void ShowArray(int[,,] arrayForShow)
+{
+   for (int i = 0; i < arrayForShow.GetLength(0); i++)
+   {
+       for (int j = 0; j < arrayForShow.GetLength(1); j++)
+       {
+           for (int l = 0; l < arrayForShow.GetLength(2); l++)
+           {
+               Console.Write("{0, 20}", arrayForShow[i, j, l] +$" ({i}, {j}, {l}) ");
+           }
+
+       }
+       Console.WriteLine();
+   }
+}
+
+int[,,] AllNumber(int[,,] arrayForShow)
+{
+   for (int i = 0; i < arrayForShow.GetLength(0); i++)
+   {
+       for (int j = 0; j < arrayForShow.GetLength(1); j++)
+       {
+           for (int l = 0; l < arrayForShow.GetLength(2); l++)
+           {
+               IndexArray(arrayForShow[i, j, l], arrayForShow, i, j, l); // поменяли числа
+           }
+       }
+   }
+   return arrayForShow;
+}
+
+int[,,] IndexArray(int num, int[,,] array, int m, int n, int p)
+{
+   int[,,] arrayThird = new int[1, 1, 1];
+
+
+   for (int i = 0; i < array.GetLength(0); i++)
+   {
+       for (int j = 0; j < array.GetLength(1); j++)
+       {
+           for (int l = 0; l < array.GetLength(2); l++)
+           {
+               while ((array[i, j, l] == array [m, n, p]) && ((i != m) || (j != n) || (l!=p))  )
+               {
+                   array[i, j, l] = new Random().Next(1, 10);  
+               }
+           }
+       }
+   }
+
+   arrayThird = array;
+
+   return arrayThird;
+}
+
+
+int[,,] arrayFirst = CreateArray(2, 2, 2, 1, 10);
+int [,,] arraySecond = AllNumber(arrayFirst);
+ShowArray(arraySecond);
+
+*/
+
+
+
+// Вторая попытка решить задачу 4.
+
+// Вопрос , такая же ситуация, при попытке создания массива с неповторяющимися числами, все равно попадаются 
+// одинаковые. 
+
+/* Решение внутри
+
+int[,,] CreateArray(int rows, int columns, int rowsSecond, int minValue, int maxValue)
+{
     int[,,] array = new int[rows, columns, rowsSecond];
+    int count = 0;
     for (int i = 0; i < array.GetLength(0); i++)
     {
         for (int j = 0; j < array.GetLength(1); j++)
@@ -425,6 +514,30 @@ int[,,] CreateArray(int rows, int columns, int rowsSecond, int minValue, int max
             for (int l = 0; l < array.GetLength(2); l++)
             {
                 array[i, j, l] = new Random().Next(minValue, maxValue);
+                count = array[i, j, l];
+
+                for (int m = 0; m <  array.GetLength(0); m++)
+                {
+                    for (int n = 0 ; n < array.GetLength(1); n++)
+                    {
+                        for (int p = 0; p < array.GetLength(2) ; p++)
+                        {
+                        
+                            while ((array[i, j, l] == array [m, n, p]) && (i!=m | j!=n | l!=p))
+                            {
+                                Console.WriteLine("Зашли в наш цикл == переменная равна: == " +array[i, j, l] );
+                                array[i, j, l] = new Random().Next(minValue, maxValue);
+                                Console.WriteLine("Зашли в наш цикл!  после изменения переменная равна===" + array[i, j, l]);
+                            }
+                            
+                            
+                        }
+                    }
+                }
+                count = 0;
+
+
+
             }
         }
     }
@@ -439,7 +552,7 @@ void ShowArray(int[,,] arrayForShow)
         {
             for (int l = 0; l < arrayForShow.GetLength(2); l++)
             {
-                Console.Write("{0, 20}", arrayForShow[i, j, l] +$" ({i}, {j}, {l}) ");
+                Console.Write("{0, 5}", arrayForShow[i, j, l]);
             }
 
         }
@@ -447,49 +560,8 @@ void ShowArray(int[,,] arrayForShow)
     }
 }
 
-int[,,] AllNumber(int[,,] arrayForShow)
-{
-    for (int i = 0; i < arrayForShow.GetLength(0); i++)
-    {
-        for (int j = 0; j < arrayForShow.GetLength(1); j++)
-        {
-            for (int l = 0; l < arrayForShow.GetLength(2); l++)
-            {
-                IndexArray(arrayForShow[i, j, l], arrayForShow, i, j, l); // поменяли числа
-            }
-        }
-    }
-    return arrayForShow;
-}
+int [,,] arrayFifth = CreateArray(2, 2, 2, 1, 10);
 
-int[,,] IndexArray(int num, int[,,] array, int m, int n, int p)
-{
-    int[,,] arrayThird = new int[1, 1, 1];
-    
-
-    for (int i = 0; i < array.GetLength(0); i++)
-    {
-        for (int j = 0; j < array.GetLength(1); j++)
-        {
-            for (int l = 0; l < array.GetLength(2); l++)
-            {
-                while ((array[i, j, l] == array [m, n, p]) && ((i != m) || (j != n) || (l!=p))  )
-                {
-                    array[i, j, l] = new Random().Next(1, 10);  
-                }
-            }
-        }
-    }
-    
-    arrayThird = array;
-
-    return arrayThird;
-}
-
-
-int[,,] arrayFirst = CreateArray(2, 2, 2, 1, 10);
-int [,,] arraySecond = AllNumber(arrayFirst);
-ShowArray(arraySecond);
+ShowArray(arrayFifth);
 
 */
-
