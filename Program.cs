@@ -324,14 +324,14 @@ void ShowArray(int[,,] arrayForShow)
         {
             for (int l = 0; l < arrayForShow.GetLength(2); l++)
             {
-                Console.Write("{0, 4}", arrayForShow[i, j, l] + " ");
+                Console.Write("{0, 20}", arrayForShow[i, j, l] +$" ({i}, {j}, {l}) ");
             }
+
         }
         Console.WriteLine();
     }
 }
 
-// метод который пройдется по всем числам массива
 int[,,] AllNumber(int[,,] arrayForShow)
 {
     for (int i = 0; i < arrayForShow.GetLength(0); i++)
@@ -347,11 +347,11 @@ int[,,] AllNumber(int[,,] arrayForShow)
     return arrayForShow;
 }
 
-// заменяет
 int[,,] IndexArray(int num, int[,,] array, int m, int n, int p)
 {
     int[,,] arrayThird = new int[1, 1, 1];
-    int countMax = array[0, 0, 0];
+    
+    int count = array[0, 0, 0];
 
     for (int i = 0; i < array.GetLength(0); i++)
     {
@@ -359,27 +359,24 @@ int[,,] IndexArray(int num, int[,,] array, int m, int n, int p)
         {
             for (int l = 0; l < array.GetLength(2); l++)
             {
-                if (countMax < array[i, j, l])
+                if (count < array[i, j, l])
                 {
-                    countMax = array[i, j, l]; // максимальное число
-                    //Console.WriteLine(" Максимальное число равно " + countMax);
+                    count= array[i, j , l];
                 }
             }
         }
     }
 
-
     for (int i = 0; i < array.GetLength(0); i++)
     {
         for (int j = 0; j < array.GetLength(1); j++)
         {
             for (int l = 0; l < array.GetLength(2); l++)
             {
-                if ((array[i, j, l] == array [m, n, p]) && ((i != m) ||(j != n) || (l != p)))
+                while ((array[i, j, l] == array [m, n, p]) && ((i != m) || (j != n) || (l!=p))  )
                 {
-                    Console.WriteLine("Зашли в цикл! ");
-                    countMax ++;
-                    array[i, j, l] = countMax;  // изменили
+                    count++;
+                    array[i, j, l] = count;  
                 }
             }
         }
@@ -391,11 +388,10 @@ int[,,] IndexArray(int num, int[,,] array, int m, int n, int p)
 }
 
 
-int[,,] arrayFirst = CreateArray(2, 2, 2, 1, 10);
-ShowArray(arrayFirst);  // показали массив
-Console.WriteLine();
+int[,,] arrayFirst = CreateArray(2, 2, 2, 1, 90);
 int [,,] arraySecond = AllNumber(arrayFirst);
 ShowArray(arraySecond);
+
 
 // */
 
