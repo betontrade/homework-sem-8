@@ -288,6 +288,7 @@ else
 
 
 // 4
+
 // Задача 60. ...Сформируйте трёхмерный массив из неповторяющихся !!! двузначных чисел. 
 // Напишите программу, которая будет построчно выводить массив, добавляя индексы каждого элемента.
 // Массив размером 2 x 2 x 2
@@ -298,7 +299,7 @@ else
 // 27(0,0,1) 90(0,1,1)
 // 26(1,0,1) 55(1,1,1)
 
-// /* черновик
+/* Решение внутри
 
 int[,,] CreateArray(int rows, int columns, int rowsSecond, int minValue, int maxValue)
 {
@@ -393,10 +394,10 @@ int [,,] arraySecond = AllNumber(arrayFirst);
 ShowArray(arraySecond);
 
 
-// */
+ */
 
 
-
+// 5 
 // Задача 62. Напишите программу, которая заполнит спирально массив 4 на 4.
 // Например, на выходе получается вот такой массив:
 // количество строк и столбцов произвольное
@@ -406,4 +407,89 @@ ShowArray(arraySecond);
 // 11 16 15 06
 // 10 09 08 07
 
+
+// Попытка решить задачу 4, заменяя повторяющиеся элементы методом new Random().Next(min, max)
+
+// Вопрос: Почему, при такой реализации, все равно остаются повторяющиеся числа? Не могу найти ответ,
+// в чем моя ошибка?
+
+/* Решение внутри
+
+int[,,] CreateArray(int rows, int columns, int rowsSecond, int minValue, int maxValue)
+{
+    int[,,] array = new int[rows, columns, rowsSecond];
+    for (int i = 0; i < array.GetLength(0); i++)
+    {
+        for (int j = 0; j < array.GetLength(1); j++)
+        {
+            for (int l = 0; l < array.GetLength(2); l++)
+            {
+                array[i, j, l] = new Random().Next(minValue, maxValue);
+            }
+        }
+    }
+    return array;
+}
+
+void ShowArray(int[,,] arrayForShow)
+{
+    for (int i = 0; i < arrayForShow.GetLength(0); i++)
+    {
+        for (int j = 0; j < arrayForShow.GetLength(1); j++)
+        {
+            for (int l = 0; l < arrayForShow.GetLength(2); l++)
+            {
+                Console.Write("{0, 20}", arrayForShow[i, j, l] +$" ({i}, {j}, {l}) ");
+            }
+
+        }
+        Console.WriteLine();
+    }
+}
+
+int[,,] AllNumber(int[,,] arrayForShow)
+{
+    for (int i = 0; i < arrayForShow.GetLength(0); i++)
+    {
+        for (int j = 0; j < arrayForShow.GetLength(1); j++)
+        {
+            for (int l = 0; l < arrayForShow.GetLength(2); l++)
+            {
+                IndexArray(arrayForShow[i, j, l], arrayForShow, i, j, l); // поменяли числа
+            }
+        }
+    }
+    return arrayForShow;
+}
+
+int[,,] IndexArray(int num, int[,,] array, int m, int n, int p)
+{
+    int[,,] arrayThird = new int[1, 1, 1];
+    
+
+    for (int i = 0; i < array.GetLength(0); i++)
+    {
+        for (int j = 0; j < array.GetLength(1); j++)
+        {
+            for (int l = 0; l < array.GetLength(2); l++)
+            {
+                while ((array[i, j, l] == array [m, n, p]) && ((i != m) || (j != n) || (l!=p))  )
+                {
+                    array[i, j, l] = new Random().Next(1, 10);  
+                }
+            }
+        }
+    }
+    
+    arrayThird = array;
+
+    return arrayThird;
+}
+
+
+int[,,] arrayFirst = CreateArray(2, 2, 2, 1, 10);
+int [,,] arraySecond = AllNumber(arrayFirst);
+ShowArray(arraySecond);
+
+*/
 
