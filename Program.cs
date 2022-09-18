@@ -11,7 +11,7 @@
 // 8 4 4 2
 // по строкам!!!!!!!
 
-/* Решение внутри
+ /* Решение внутри
 
 int[,] CreateArray(int rows, int columns, int minValue, int maxValue)
 {
@@ -44,8 +44,8 @@ int[,] SortArray(int[,] arrayForSort)
    int temp = 0;
    for (int i = 0; i < arrayForSort.GetLength(0); i++)
    {
-       for (int j = 1; j < (arrayForSort.GetLength(1) -1); j++)
-       {              // 2    (1)           // 1   (9)
+       for (int j = 1; j < (arrayForSort.GetLength(1) ); j++)
+       {              
            for (int l = 1; l < arrayForSort.GetLength(1); l++)
            {
                if (arrayForSort[i, l] < arrayForSort[i, l - 1])
@@ -95,7 +95,7 @@ ShowArray(arrayAfterSort);
 
 // 5 9 2 3
 
-//8 4 2 4
+// 8 4 2 4
 
 // 5 2 6 7
 
@@ -103,7 +103,7 @@ ShowArray(arrayAfterSort);
 
 // Программа считает сумму элементов в каждой строке и выдаёт номер строки с наименьшей суммой элементов: 1 строка
 
-/* Решение внутри
+ /* Решение внутри
 
 int[,] CreateArray(int rowsAndColumns, int minValue, int maxValue)
 {
@@ -278,7 +278,7 @@ if (firstArray.GetLength(1) != secondArray.GetLength(0))
 }
 else
 {
-   Console.WriteLine("их произведение равно:");
+   Console.WriteLine(" Произведение матриц равно:");
    int[,] CalcFinalMatrix = CalcMatrix(firstArray, secondArray);
    ShowArray(CalcFinalMatrix);
    Console.WriteLine();
@@ -394,7 +394,7 @@ int [,,] arraySecond = AllNumber(arrayFirst);
 ShowArray(arraySecond);
 
 
- */
+*/
 
 
 // 5 
@@ -407,7 +407,7 @@ ShowArray(arraySecond);
 // 11 16 15 06
 // 10 09 08 07
 
-/* Решение внутри
+ /* Решение внутри
 
 int[,] CreateSpiral(int rows, int columns)
 {
@@ -540,7 +540,7 @@ int[,,] AllNumber(int[,,] arrayForShow)
        {
            for (int l = 0; l < arrayForShow.GetLength(2); l++)
            {
-               IndexArray(arrayForShow[i, j, l], arrayForShow, i, j, l); // поменяли числа
+               IndexArray(arrayForShow[i, j, l], arrayForShow, i, j, l); 
            }
        }
    }
@@ -585,12 +585,11 @@ ShowArray(arraySecond);
 // Вопрос , такая же ситуация, при попытке создания массива с неповторяющимися числами, все равно попадаются 
 // одинаковые. Не могу найти ошибку.
 
-/* Решение внутри
+ /* Решение внутри
 
 int[,,] CreateArray(int rows, int columns, int rowsSecond, int minValue, int maxValue)
 {
     int[,,] array = new int[rows, columns, rowsSecond];
-    int count = 0;
     for (int i = 0; i < array.GetLength(0); i++)
     {
         for (int j = 0; j < array.GetLength(1); j++)
@@ -598,8 +597,7 @@ int[,,] CreateArray(int rows, int columns, int rowsSecond, int minValue, int max
             for (int l = 0; l < array.GetLength(2); l++)
             {
                 array[i, j, l] = new Random().Next(minValue, maxValue);
-                count = array[i, j, l];
-
+               
                 for (int m = 0; m <  array.GetLength(0); m++)
                 {
                     for (int n = 0 ; n < array.GetLength(1); n++)
@@ -618,10 +616,7 @@ int[,,] CreateArray(int rows, int columns, int rowsSecond, int minValue, int max
                         }
                     }
                 }
-                count = 0;
-
-
-
+                
             }
         }
     }
