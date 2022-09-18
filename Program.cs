@@ -195,43 +195,43 @@ Console.WriteLine("Индекс строки с наименьшей суммо�
 
 int[,] CreateArray(int rows, int columns, int minValue, int maxValue)
 {
-    int[,] array = new int[rows, columns];
-    for (int i = 0; i < array.GetLength(0); i++)
-    {
-        for (int j = 0; j < array.GetLength(1); j++)
-        {
-            array[i, j] = new Random().Next(minValue, maxValue);
-        }
-    }
-    return array;
+   int[,] array = new int[rows, columns];
+   for (int i = 0; i < array.GetLength(0); i++)
+   {
+       for (int j = 0; j < array.GetLength(1); j++)
+       {
+           array[i, j] = new Random().Next(minValue, maxValue);
+       }
+   }
+   return array;
 }
 
 void ShowArray(int[,] arrayForShow)
 {
-    for (int i = 0; i < arrayForShow.GetLength(0); i++)
-    {
-        for (int j = 0; j < arrayForShow.GetLength(1); j++)
-        {
-            Console.Write("{0, 4}", arrayForShow[i, j] + " ");
-        }
-        Console.WriteLine();
-    }
+   for (int i = 0; i < arrayForShow.GetLength(0); i++)
+   {
+       for (int j = 0; j < arrayForShow.GetLength(1); j++)
+       {
+           Console.Write("{0, 4}", arrayForShow[i, j] + " ");
+       }
+       Console.WriteLine();
+   }
 }
 
 int[,] CalcMatrix(int[,] first, int[,] second)
 {
-    int[,] calcArray = new int[first.GetLength(0), second.GetLength(1)];
-    for (int i = 0; i < first.GetLength(0); i++)
-    {
-        for (int j = 0; j < second.GetLength(1); j++)
-        {
-            for (int l = 0; l < second.GetLength(0); l++)
-            {
-                calcArray[i, j] = calcArray[i, j] + first[i, l] * second[l, j];
-            }
-        }
-    }
-    return calcArray;
+   int[,] calcArray = new int[first.GetLength(0), second.GetLength(1)];
+   for (int i = 0; i < first.GetLength(0); i++)
+   {
+       for (int j = 0; j < second.GetLength(1); j++)
+       {
+           for (int l = 0; l < second.GetLength(0); l++)
+           {
+               calcArray[i, j] = calcArray[i, j] + first[i, l] * second[l, j];
+           }
+       }
+   }
+   return calcArray;
 }
 
 //______________________________Создание массива 1_____________________
@@ -273,15 +273,15 @@ ShowArray(secondArray);
 
 if (firstArray.GetLength(1) != secondArray.GetLength(0))
 {
-    Console.WriteLine("Невозможно посчитать произведение матриц, так как количество столбцов ");
-    Console.WriteLine("первой матрицы не равно количеству строк во второй матрице");
+   Console.WriteLine("Невозможно посчитать произведение матриц, так как количество столбцов ");
+   Console.WriteLine("первой матрицы не равно количеству строк во второй матрице");
 }
 else
 {
-    Console.WriteLine("их произведение равно:");
-    int[,] CalcFinalMatrix = CalcMatrix(firstArray, secondArray);
-    ShowArray(CalcFinalMatrix);
-    Console.WriteLine();
+   Console.WriteLine("их произведение равно:");
+   int[,] CalcFinalMatrix = CalcMatrix(firstArray, secondArray);
+   ShowArray(CalcFinalMatrix);
+   Console.WriteLine();
 }
 
 */
@@ -298,7 +298,106 @@ else
 // 27(0,0,1) 90(0,1,1)
 // 26(1,0,1) 55(1,1,1)
 
+// /* черновик
 
+int[,,] CreateArray(int rows, int columns, int rowsSecond, int minValue, int maxValue)
+{
+    int[,,] array = new int[rows, columns, rowsSecond];
+    for (int i = 0; i < array.GetLength(0); i++)
+    {
+        for (int j = 0; j < array.GetLength(1); j++)
+        {
+            for (int l = 0; l < array.GetLength(2); l++)
+            {
+                array[i, j, l] = new Random().Next(minValue, maxValue);
+            }
+        }
+    }
+    return array;
+}
+
+void ShowArray(int[,,] arrayForShow)
+{
+    for (int i = 0; i < arrayForShow.GetLength(0); i++)
+    {
+        for (int j = 0; j < arrayForShow.GetLength(1); j++)
+        {
+            for (int l = 0; l < arrayForShow.GetLength(2); l++)
+            {
+                Console.Write("{0, 4}", arrayForShow[i, j, l] + " ");
+            }
+        }
+        Console.WriteLine();
+    }
+}
+
+// метод который пройдется по всем числам массива
+int[,,] AllNumber(int[,,] arrayForShow)
+{
+    for (int i = 0; i < arrayForShow.GetLength(0); i++)
+    {
+        for (int j = 0; j < arrayForShow.GetLength(1); j++)
+        {
+            for (int l = 0; l < arrayForShow.GetLength(2); l++)
+            {
+                IndexArray(arrayForShow[i, j, l], arrayForShow, i, j, l); // поменяли числа
+            }
+        }
+    }
+    return arrayForShow;
+}
+
+// заменяет
+int[,,] IndexArray(int num, int[,,] array, int m, int n, int p)
+{
+    int[,,] arrayThird = new int[1, 1, 1];
+    int countMax = array[0, 0, 0];
+
+    for (int i = 0; i < array.GetLength(0); i++)
+    {
+        for (int j = 0; j < array.GetLength(1); j++)
+        {
+            for (int l = 0; l < array.GetLength(2); l++)
+            {
+                if (countMax < array[i, j, l])
+                {
+                    countMax = array[i, j, l]; // максимальное число
+                    //Console.WriteLine(" Максимальное число равно " + countMax);
+                }
+            }
+        }
+    }
+
+
+    for (int i = 0; i < array.GetLength(0); i++)
+    {
+        for (int j = 0; j < array.GetLength(1); j++)
+        {
+            for (int l = 0; l < array.GetLength(2); l++)
+            {
+                if ((array[i, j, l] == array [m, n, p]) && ((i != m) ||(j != n) || (l != p)))
+                {
+                    Console.WriteLine("Зашли в цикл! ");
+                    countMax ++;
+                    array[i, j, l] = countMax;  // изменили
+                }
+            }
+        }
+    }
+    
+    arrayThird = array;
+
+    return arrayThird;
+}
+
+
+int[,,] arrayFirst = CreateArray(2, 2, 2, 1, 10);
+ShowArray(arrayFirst);  // показали массив
+Console.WriteLine();
+int [,,] arraySecond = AllNumber(arrayFirst);
+ShowArray(arraySecond);
+
+// */
 
 
 
