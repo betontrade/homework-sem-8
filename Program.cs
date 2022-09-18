@@ -407,17 +407,17 @@ ShowArray(arraySecond);
 // 11 16 15 06
 // 10 09 08 07
 
-int[,] CreateSpiral(int rowsAndColumns)
+/* Решение внутри
+
+int[,] CreateSpiral(int rows, int columns)
 {
 
-    int[,] array = new int[rowsAndColumns, rowsAndColumns];
+    int[,] array = new int[rows, columns];
     int m = 0;
     int n = 0;
     int index = 1;
-    //условие поворота 
 
-
-    while (index <= rowsAndColumns * rowsAndColumns)
+    while (index <= rows * columns)
     {
 
         for (int i = m, j = n; j < array.GetLength(1) && (array[i, j] == 0); j++)
@@ -425,7 +425,6 @@ int[,] CreateSpiral(int rowsAndColumns)
             {
                 array[i, j] = index;
                 index = index + 1;
-                //Console.WriteLine(array[i, j] + " вправо " + " (" + i + ", " + j + ") ");
                 m = i;
                 n = j;
             }
@@ -436,7 +435,6 @@ int[,] CreateSpiral(int rowsAndColumns)
             {
                 array[i, j] = index;
                 index = index + 1;
-                //Console.WriteLine(array[i, j] + " вниз " + " (" + i + ", " + j + ") ");
                 m = i;
                 n = j;
             }
@@ -448,7 +446,6 @@ int[,] CreateSpiral(int rowsAndColumns)
             {
                 array[i, j] = index;
                 index = index + 1;
-                //Console.WriteLine(array[i, j] + " влево " + " (" + i + ", " + j + ") ");
                 m = i;
                 n = j;
             }
@@ -459,7 +456,6 @@ int[,] CreateSpiral(int rowsAndColumns)
             {
                 array[i, j] = index;
                 index = index + 1;
-                //Console.WriteLine(array[i, j] + " вверх " + " (" + i + ", " + j + ") ");
                 m = i;
                 n = j;
             }
@@ -483,82 +479,18 @@ void ShowArray(int[,] arrayForShow)
    Console.WriteLine();
 }
 
-Console.Write("Пожалуйста введите число столбцов и строк в массиве: ");
-int numRowsAndColumns = Convert.ToInt32(Console.ReadLine());
-ShowArray(CreateSpiral(numRowsAndColumns));
-/*
-// вправо
-for (int i = 0, j = 0; j < array.GetLength(1); j++)
-{
-    {
-        array[i, j] = index;
-        index = index + 1;
-        Console.WriteLine(array[i, j] + " вправо " + " (" + i + ", " + j + ") ");
-        m = i;
-        n = j;
-    }
-}
+Console.Write("Пожалуйста введите число строк в массиве: ");
+int rows = Convert.ToInt32(Console.ReadLine());
 
-// вниз
+Console.Write("Пожалуйста введите число столбцов в массиве: ");
+int columns = Convert.ToInt32(Console.ReadLine());
 
+ShowArray(CreateSpiral(rows, columns));
 
-
-// 01 02 03 04
-// 12 13 14 05
-// 11 16 15 06
-// 10 09 08 07
-
-for (int i = m + 1, j = n; (i) < (array.GetLength(0)) && (array[i, j] == 0); i++)
-{
-    {
-        array[i, j] = index;
-        index = index + 1;
-        Console.WriteLine(array[i, j] + " вниз " + " (" + i + ", " + j + ") ");
-        m = i;
-        n = j;
-    }
-}
-
-
-
-// влево
-
-// 01 02 03 04
-// 12 13 14 05
-// 11 16 15 06
-// 10 09 08 07
-
-for (int i = m, j = n - 1; j >= 0 && (array[i, j] == 0); j--)
-{
-    {
-        array[i, j] = index;
-        index = index + 1;
-        Console.WriteLine(array[i, j] + " влево " + " (" + i + ", " + j + ") ");
-        m = i;
-        n = j;
-    }
-}
-
-
-
-// вверх
-
-// 01 02 03 04
-// 12 13 14 05
-// 11 16 15 06
-// 10 09 08 07
-
-for (int i = m - 1, j = n; i >= 0 && (array[i, j] == 0); i--)
-{
-    {
-        array[i, j] = index;
-        index = index + 1;
-        Console.WriteLine(array[i, j] + " вверх " + " (" + i + ", " + j + ") ");
-        m = i;
-        n = j;
-    }
-}
 */
+
+
+
 
 // Попытка решить задачу 4, заменяя повторяющиеся элементы методом new Random().Next(min, max)
 
